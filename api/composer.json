@@ -32,6 +32,12 @@
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.2",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "hautelook/alice-bundle": "^2.8",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan-doctrine": "^0.12.22",
+        "phpstan/phpstan-phpunit": "^0.12.16",
+        "phpstan/phpstan-symfony": "^0.12.11",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
         "symfony/debug-bundle": "^5.1",
@@ -79,6 +85,16 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "cs": "./vendor/bin/php-cs-fixer fix --diff --dry-run --allow-risky=yes",
+        "cs-fix": "./vendor/bin/php-cs-fixer fix --diff --allow-risky=yes",
+        "fixtures": [
+            "bin/console h:f:l --no-bundles --no-interaction --purge-with-truncate"
+        ],
+        "phpstan": "php -d memory_limit=-1 ./vendor/bin/phpstan analyse",
+        "schema": [
+            "bin/console d:s:d --force",
+            "bin/console d:s:u --force"
         ]
     },
     "conflict": {
