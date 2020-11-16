@@ -1,8 +1,13 @@
 App\Entity\User:
+    User_admin:
+        email: 'admin@docler.com'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$LvwvanrOoV0qNAhYyX2nzA\$MGGCNGl4Puqj/S6q2ctBIcqIW3uF4ZJENnMCNpOdg9U' # admin
+        roles: ['ROLE_ADMIN']
+
     User_1:
         email: 'user1@docler.com'        
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$2rAcpxK/75aSdem0NmQTqA\$DGsczm5t+xsAYmbS5RWgpTKpHtIcpRhHWDb5zFafMi0' # docler1
-        
+
     User_2:
         email: 'user2@docler.com'
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$cjSSUDw8hvz4O/sY1Ywn0Q\$6Pc7JmnJIDHNs6h8Cy7zgfCdAwgPzZc1gHgXDBmiuxk' # docler2

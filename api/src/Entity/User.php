@@ -36,6 +36,13 @@ class User implements UserInterface
     private string $password = '';
 
     /**
+     * @var string[]
+     *
+     * @ORM\Column(type="json")
+     */
+    private array $roles = [];
+
+    /**
      * @var Collection<int, Task>
      *
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user")
@@ -81,7 +88,23 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        // Ensure ROLE_USER is present.
+        return array_unique(
+            array_merge(
+                $this->roles,
+                ['ROLE_USER'],
+            ),
+        );
+    }
+
+    /**
+     * @param string[] $roles
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getSalt(): ?string
