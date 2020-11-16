@@ -1,0 +1,8 @@
+App\Entity\User:
+    User_1:
+        email: 'user1@docler.com'
+        password: 'pass1'
+        
+    User_2:
+        email: 'user2@docler.com'
+        password: 'pass2'

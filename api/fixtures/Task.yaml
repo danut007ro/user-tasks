@@ -1,0 +1,12 @@
+App\Entity\Task:
+    Task_1_1:
+        user: '@User_1'
+        description: 'Task 1 for user1'
+        
+    Task_1_2:
+        user: '@User_1'
+        description: 'Task 2 for user1'
+
+    Task_2_1:
+        user: '@User_2'
+        description: 'Task for user2'
