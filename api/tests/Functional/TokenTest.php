@@ -20,8 +20,8 @@ class TokenTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertResponseIsSuccessful();
-        $this->assertMatchesJsonSchema([
+        self::assertResponseIsSuccessful();
+        self::assertMatchesJsonSchema([
             'type' => 'object',
             'properties' => [
                 'token' => [

@@ -16,10 +16,10 @@ class UserTest extends ApiTestCase
     {
         $response = static::createClient()->request('GET', '/users');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
 
-        $this->assertJsonContains([
+        self::assertJsonContains([
             '@context' => '/contexts/User',
             '@id' => '/users',
             '@type' => 'hydra:Collection',
@@ -33,8 +33,8 @@ class UserTest extends ApiTestCase
             'hydra:totalItems' => 101,
         ]);
 
-        $this->assertCount(30, $response->toArray()['hydra:member']);
-        $this->assertMatchesResourceCollectionJsonSchema(User::class);
+        self::assertCount(30, $response->toArray()['hydra:member']);
+        self::assertMatchesResourceCollectionJsonSchema(User::class);
     }
 
     public function testGetItem(): void
@@ -42,16 +42,16 @@ class UserTest extends ApiTestCase
         $user = self::$fixtures['User_1']; // @phpstan-ignore-line
         static::createClient()->request('GET', "/users/{$user->getId()}");
 
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
 
-        $this->assertJsonEquals([
+        self::assertJsonEquals([
             '@context' => '/contexts/User',
             '@id' => "/users/{$user->getId()}",
             '@type' => 'User',
             'email' => 'user1@docler.com',
         ]);
 
-        $this->assertMatchesResourceItemJsonSchema(User::class);
+        self::assertMatchesResourceItemJsonSchema(User::class);
     }
 }
