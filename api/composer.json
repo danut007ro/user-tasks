@@ -98,7 +98,8 @@
         "schema": [
             "bin/console d:s:d --force",
             "bin/console d:s:u --force"
-        ]
+        ],
+        "tests": "php ./vendor/bin/simple-phpunit"
     },
     "conflict": {
         "symfony/symfony": "*"

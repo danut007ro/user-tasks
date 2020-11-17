@@ -1,5 +1,7 @@
 parameters:
-    level: 8
+    level: max
+    bootstrapFiles:
+        - ./bin/.phpunit/phpunit-9.3-0/vendor/autoload.php
     paths:
         - src
         - tests

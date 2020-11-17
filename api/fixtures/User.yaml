@@ -11,3 +11,7 @@ App\Entity\User:
     User_2:
         email: 'user2@docler.com'
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$cjSSUDw8hvz4O/sY1Ywn0Q\$6Pc7JmnJIDHNs6h8Cy7zgfCdAwgPzZc1gHgXDBmiuxk' # docler2
+
+    User_{3..100}:
+        email: <email()>
+        password: ''

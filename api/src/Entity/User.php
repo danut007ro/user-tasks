@@ -5,14 +5,24 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user:output"}},
+ *     collectionOperations={
+ *      "get",
+ *     },
+ *     itemOperations={
+ *      "get",
+ *     },
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
@@ -26,6 +36,7 @@ class User implements UserInterface
     private ?int $id = null;
 
     /**
+     * @Groups({"user:output"})
      * @ORM\Column(type="string", unique=true)
      */
     private string $email = '';
@@ -45,6 +56,7 @@ class User implements UserInterface
     /**
      * @var Collection<int, Task>
      *
+     * @ApiSubresource()
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user")
      */
     private Collection $tasks;
