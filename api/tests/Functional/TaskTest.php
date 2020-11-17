@@ -100,6 +100,7 @@ class TaskTest extends ApiTestCase
             'id' => $task->getId(),
             'description' => 'Task 1 for user1',
             'user' => "/users/{$task->getUser()->getId()}",
+            'marking' => 'new',
         ]);
 
         self::assertMatchesResourceItemJsonSchema(Task::class);
