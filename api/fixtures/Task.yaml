@@ -14,3 +14,17 @@ App\Entity\Task:
     Task_3_{1..100}:
         user: '@User_3'
         description: <paragraph()>
+
+    Task_4_new:
+        user: '@User_4'
+        description: <paragraph()>
+    
+    Task_4_in_progress:
+        user: '@User_4'
+        description: <paragraph()>
+        marking: in_progress
+
+    Task_4_done:
+        user: '@User_4'
+        description: <paragraph()>
+        marking: done

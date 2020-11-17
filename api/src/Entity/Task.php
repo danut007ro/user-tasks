@@ -36,6 +36,11 @@ class Task
     private string $description = '';
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private string $marking = 'new';
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -59,6 +64,18 @@ class Task
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getMarking(): string
+    {
+        return $this->marking;
+    }
+
+    public function setMarking(string $marking): self
+    {
+        $this->marking = $marking;
 
         return $this;
     }

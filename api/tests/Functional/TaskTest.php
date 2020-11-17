@@ -46,7 +46,7 @@ class TaskTest extends ApiTestCase
         ]);
 
         self::assertResponseIsSuccessful();
-        self::assertEquals('NEW', $response->toArray()['status']);
+        self::assertEquals('new', $response->toArray()['marking']);
     }
 
     public function testCreateTaskForOtherFails(): void
