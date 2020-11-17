@@ -154,6 +154,9 @@
             "fixtures/.gitignore"
         ]
     },
+    "jangregor/phpstan-prophecy": {
+        "version": "0.8.1"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.10"
     },
@@ -241,6 +244,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.3.0"
+    },
+    "phpspec/prophecy": {
+        "version": "1.12.1"
     },
     "phpstan/extension-installer": {
         "version": "1.0.5"
