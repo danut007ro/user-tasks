@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Update context by adding "admin:input" if current user is admin.
  */
-class ContextBuilder implements SerializerContextBuilderInterface
+final class ContextBuilder implements SerializerContextBuilderInterface
 {
     private SerializerContextBuilderInterface $decorated;
     private AuthorizationCheckerInterface $authorizationChecker;
