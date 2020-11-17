@@ -39,7 +39,7 @@ class UserTest extends ApiTestCase
 
     public function testGetItem(): void
     {
-        $user = self::$fixtures['User_1'];
+        $user = self::$fixtures['User_1']; // @phpstan-ignore-line
         static::createClient()->request('GET', "/users/{$user->getId()}");
 
         $this->assertResponseIsSuccessful();
