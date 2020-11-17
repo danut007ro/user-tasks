@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-final class User implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id

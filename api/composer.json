@@ -37,7 +37,7 @@
         "hautelook/alice-bundle": "^2.8",
         "jangregor/phpstan-prophecy": "^0.8.1",
         "justinrainbow/json-schema": "^5.2",
-        "phpspec/prophecy": "^1.12",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan-doctrine": "^0.12.22",
         "phpstan/phpstan-phpunit": "^0.12.16",

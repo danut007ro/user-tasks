@@ -7,28 +7,18 @@ namespace App\Tests\Unit\Serializer;
 use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
 use App\Serializer\ContextBuilder;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophet;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class ContextBuilderTest extends TestCase
 {
-    private Prophet $prophet;
-
-    protected function setUp(): void
-    {
-        $this->prophet = new Prophet();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->prophet->checkPredictions();
-    }
+    use ProphecyTrait;
 
     public function testAddAdminInput(): void
     {
-        $decoratedSerializer = $this->prophet->prophesize(SerializerContextBuilderInterface::class);
-        $authChecker = $this->prophet->prophesize(AuthorizationCheckerInterface::class);
+        $decoratedSerializer = $this->prophesize(SerializerContextBuilderInterface::class);
+        $authChecker = $this->prophesize(AuthorizationCheckerInterface::class);
         $request = new Request();
 
         $decoratedSerializer->createFromRequest($request, false, null)
