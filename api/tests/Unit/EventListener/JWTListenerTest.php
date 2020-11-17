@@ -19,7 +19,6 @@ final class JWTListenerTest extends TestCase
     {
         $events = JWTListener::getSubscribedEvents();
 
-        self::assertArrayHasKey('lexik_jwt_authentication.on_jwt_created', $events);
         self::assertEquals('onJWTCreated', $events['lexik_jwt_authentication.on_jwt_created']);
     }
 

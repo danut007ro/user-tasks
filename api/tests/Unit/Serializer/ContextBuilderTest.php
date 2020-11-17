@@ -30,7 +30,6 @@ final class ContextBuilderTest extends TestCase
         $contextBuilder = new ContextBuilder($decoratedSerializer->reveal(), $authChecker->reveal());
         $context = $contextBuilder->createFromRequest($request, false);
 
-        self::assertArrayHasKey('groups', $context);
         self::assertEquals(['foo', 'bar', 'admin:input'], $context['groups']);
     }
 }
