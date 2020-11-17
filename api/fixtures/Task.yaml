@@ -10,3 +10,7 @@ App\Entity\Task:
     Task_2_1:
         user: '@User_2'
         description: 'Task for user2'
+
+    Task_3_{1..100}:
+        user: '@User_3'
+        description: <paragraph()>

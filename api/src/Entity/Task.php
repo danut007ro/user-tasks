@@ -9,7 +9,16 @@ use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *      "post"={
+ *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
+ *      },
+ *     },
+ *     itemOperations={
+ *      "get",
+ *     },
+ * )
  * @ORM\Entity(repositoryClass=TaskRepository::class)
  */
 class Task
