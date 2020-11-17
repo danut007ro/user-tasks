@@ -31,6 +31,24 @@ class TaskTest extends ApiTestCase
         self::assertResponseStatusCodeSame(401);
     }
 
+    public function testCreateTaskWithMarkingIsIgnored(): void
+    {
+        $user = self::$fixtures['User_1']; // @phpstan-ignore-line
+
+        $response = static::createClient()->request('POST', '/tasks', [
+            'json' => [
+                'description' => 'foo',
+                'user' => "/users/{$user->getId()}",
+                'marking' => 'in_progress',
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer '.self::$token,
+            ],
+        ]);
+
+        self::assertEquals('new', $response->toArray()['marking']);
+    }
+
     public function testCreateTaskForSelfSucceedsAsNew(): void
     {
         $user = self::$fixtures['User_1']; // @phpstan-ignore-line

@@ -7,9 +7,11 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     denormalizationContext={"groups"={"task:input"}},
  *     collectionOperations={
  *      "post"={
  *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
@@ -31,6 +33,7 @@ class Task
     private ?int $id = null;
 
     /**
+     * @Groups({"task:input"})
      * @ORM\Column(type="text")
      */
     private string $description = '';
@@ -41,6 +44,7 @@ class Task
     private string $marking = 'new';
 
     /**
+     * @Groups({"task:input"})
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
      */
