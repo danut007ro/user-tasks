@@ -103,6 +103,63 @@ class TaskTest extends ApiTestCase
         self::assertEquals("/users/{$user->getId()}", $response->toArray()['user']);
     }
 
+    public function testUpdateTaskForSelfSucceeds(): void
+    {
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        $response = static::createClient()->request('PATCH', "/tasks/{$task->getId()}", [
+            'json' => [
+                'description' => 'foo',
+                'user' => "/users/{$task->getUser()->getId()}",
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer '.self::$token,
+                'Content-Type' => 'application/merge-patch+json',
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+        self::assertEquals('foo', $response->toArray()['description']);
+    }
+
+    public function testUpdateTaskForOtherFails(): void
+    {
+        $user = self::$fixtures['User_2']; // @phpstan-ignore-line
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        static::createClient()->request('PATCH', "/tasks/{$task->getId()}", [
+            'json' => [
+                'user' => "/users/{$user->getId()}",
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer '.self::$token,
+                'Content-Type' => 'application/merge-patch+json',
+            ],
+        ]);
+
+        self::assertResponseStatusCodeSame(403);
+    }
+
+    public function testUpdateTaskForOtherAsAdminSucceeds(): void
+    {
+        $token = self::login('admin@docler.com', 'admin');
+        $user = self::$fixtures['User_2']; // @phpstan-ignore-line
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        $response = static::createClient()->request('PATCH', "/tasks/{$task->getId()}", [
+            'json' => [
+                'user' => "/users/{$user->getId()}",
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                'Content-Type' => 'application/merge-patch+json',
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+        self::assertEquals("/users/{$user->getId()}", $response->toArray()['user']);
+    }
+
     public function testGetItem(): void
     {
         $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line

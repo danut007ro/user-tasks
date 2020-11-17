@@ -19,6 +19,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     itemOperations={
  *      "get",
+ *      "patch"={
+ *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
+ *      },
  *     },
  * )
  * @ORM\Entity(repositoryClass=TaskRepository::class)
