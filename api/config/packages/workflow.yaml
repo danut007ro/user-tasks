@@ -18,3 +18,6 @@ framework:
                 completed:
                     from: in_progress
                     to: done
+                not_done:
+                    from: done
+                    to: in_progress

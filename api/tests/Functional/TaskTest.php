@@ -206,4 +206,37 @@ class TaskTest extends ApiTestCase
         self::assertCount(30, $response->toArray()['hydra:member']);
         self::assertMatchesResourceCollectionJsonSchema(Task::class);
     }
+
+    public function testTransitionWorking(): void
+    {
+        $this->testTransition(self::$fixtures['Task_4_in_progress'], 'working'); // @phpstan-ignore-line
+        $this->testTransition(self::$fixtures['Task_4_new'], 'working', 'in_progress'); // @phpstan-ignore-line
+    }
+
+    public function testTransitionCompleted(): void
+    {
+        $this->testTransition(self::$fixtures['Task_4_new'], 'completed'); // @phpstan-ignore-line
+        $this->testTransition(self::$fixtures['Task_4_in_progress'], 'completed', 'done'); // @phpstan-ignore-line
+    }
+
+    public function testTransitionNotDone(): void
+    {
+        $this->testTransition(self::$fixtures['Task_4_in_progress'], 'not_done'); // @phpstan-ignore-line
+        $this->testTransition(self::$fixtures['Task_4_done'], 'not_done', 'in_progress'); // @phpstan-ignore-line
+    }
+
+    private function testTransition(Task $task, string $transition, string $expectedMarking = ''): void
+    {
+        $response = static::createClient()->request('POST', "/tasks/{$task->getId()}/transition/$transition", [
+            'headers' => [
+                'Authorization' => 'Bearer '.self::$token,
+            ],
+        ]);
+
+        if ('' === $expectedMarking) {
+            self::assertResponseStatusCodeSame(403);
+        } else {
+            self::assertEquals($expectedMarking, $response->toArray()['marking']);
+        }
+    }
 }
