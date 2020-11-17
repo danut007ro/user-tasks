@@ -31,11 +31,11 @@ class TaskTest extends ApiTestCase
         self::assertResponseStatusCodeSame(401);
     }
 
-    public function testCreateTaskForSelfSucceeds(): void
+    public function testCreateTaskForSelfSucceedsAsNew(): void
     {
         $user = self::$fixtures['User_1']; // @phpstan-ignore-line
 
-        static::createClient()->request('POST', '/tasks', [
+        $response = static::createClient()->request('POST', '/tasks', [
             'json' => [
                 'description' => 'foo',
                 'user' => "/users/{$user->getId()}",
@@ -46,6 +46,7 @@ class TaskTest extends ApiTestCase
         ]);
 
         self::assertResponseIsSuccessful();
+        self::assertEquals('NEW', $response->toArray()['status']);
     }
 
     public function testCreateTaskForOtherFails(): void
