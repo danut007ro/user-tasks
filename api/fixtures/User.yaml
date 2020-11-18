@@ -1,23 +1,23 @@
 App\Entity\User:
     User_admin:
-        email: 'admin@docler.com'
+        email: 'admin@test.com'
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$LvwvanrOoV0qNAhYyX2nzA\$MGGCNGl4Puqj/S6q2ctBIcqIW3uF4ZJENnMCNpOdg9U' # admin
         roles: ['ROLE_ADMIN']
 
     User_1:
-        email: 'user1@docler.com'        
-        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$2rAcpxK/75aSdem0NmQTqA\$DGsczm5t+xsAYmbS5RWgpTKpHtIcpRhHWDb5zFafMi0' # docler1
+        email: 'user1@test.com'        
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$AtQOxG624qzxqEmEkq8NEg\$S9nR1XEVMCdLqONmE+R2Uo+d7RhwaSSF3/cVbOg1szU' # test1
 
     User_2:
-        email: 'user2@docler.com'
-        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$cjSSUDw8hvz4O/sY1Ywn0Q\$6Pc7JmnJIDHNs6h8Cy7zgfCdAwgPzZc1gHgXDBmiuxk' # docler2
+        email: 'user2@test.com'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$uzPFjF1g7ziBaGbU5M+/8w\$kgTY1MekttKgkp43KKla3T+BYNHfdnNdfHUwQFUwOAQ' # test2
 
     User_3:
-        email: 'user3@docler.com'
-        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$pagXzxc6v/4Ibo4cmTlTtw\$oLquBQ9Sqq3MYx6JB3LrAVz/amFDWuN5sDOIa/5bJ6A' # docler3
+        email: 'user3@test.com'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$pG2rqhIfm9yeM2DKqTpK1w\$7UO+jei6TMnsDrdWDAehTrjrTcqP/ON5VSQPFacJNec' # test3
 
     User_4:
-        email: 'user4@docler.com'
+        email: 'user4@test.com'
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$69sWulaqq5RRd+SBYzRRSw\$hccWdwYbCcgez6uuQWTYzw5pchEM/xeuoG1GfkHD8vk' # test
 
     User_{5..100}:

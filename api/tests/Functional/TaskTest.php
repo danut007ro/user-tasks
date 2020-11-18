@@ -17,7 +17,7 @@ class TaskTest extends ApiTestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$token = self::login('user1@docler.com', 'docler1');
+        self::$token = self::login('user1@test.com', 'test1');
     }
 
     public function testCreateTaskWithoutTokenFails(): void
@@ -86,7 +86,7 @@ class TaskTest extends ApiTestCase
 
     public function testCreateTaskForOtherAsAdminSucceeds(): void
     {
-        $token = self::login('admin@docler.com', 'admin');
+        $token = self::login('admin@test.com', 'admin');
         $user = self::$fixtures['User_2']; // @phpstan-ignore-line
 
         $response = static::createClient()->request('POST', '/tasks', [
@@ -158,7 +158,7 @@ class TaskTest extends ApiTestCase
 
     public function testUpdateTaskForOtherAsAdminSucceeds(): void
     {
-        $token = self::login('admin@docler.com', 'admin');
+        $token = self::login('admin@test.com', 'admin');
         $user = self::$fixtures['User_2']; // @phpstan-ignore-line
         $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
 
@@ -187,7 +187,7 @@ class TaskTest extends ApiTestCase
 
     public function testDeleteTaskForSelfSucceeds(): void
     {
-        $token = self::login('user4@docler.com', 'test');
+        $token = self::login('user4@test.com', 'test');
         $task = self::$fixtures['Task_4_done']; // @phpstan-ignore-line
 
         static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
@@ -214,7 +214,7 @@ class TaskTest extends ApiTestCase
 
     public function testDeleteTaskForOtherAsAdminSucceeds(): void
     {
-        $token = self::login('admin@docler.com', 'admin');
+        $token = self::login('admin@test.com', 'admin');
         $task = self::$fixtures['Task_4_done']; // @phpstan-ignore-line
 
         static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
@@ -228,7 +228,7 @@ class TaskTest extends ApiTestCase
 
     public function testDeleteNotDoneFails(): void
     {
-        $token = self::login('admin@docler.com', 'admin');
+        $token = self::login('admin@test.com', 'admin');
         $task = self::$fixtures['Task_4_in_progress']; // @phpstan-ignore-line
 
         static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
@@ -298,27 +298,27 @@ class TaskTest extends ApiTestCase
 
     public function testTransitionAsAdminSucceeds(): void
     {
-        self::$token = self::login('admin@docler.com', 'admin');
+        self::$token = self::login('admin@test.com', 'admin');
         $this->testTransition(self::$fixtures['Task_4_new'], 'working', 'in_progress'); // @phpstan-ignore-line
     }
 
     public function testTransitionWorking(): void
     {
-        self::$token = $this->login('user4@docler.com', 'test');
+        self::$token = $this->login('user4@test.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'working'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_new'], 'working', 'in_progress'); // @phpstan-ignore-line
     }
 
     public function testTransitionCompleted(): void
     {
-        self::$token = $this->login('user4@docler.com', 'test');
+        self::$token = $this->login('user4@test.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_new'], 'completed'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'completed', 'done'); // @phpstan-ignore-line
     }
 
     public function testTransitionNotDone(): void
     {
-        self::$token = $this->login('user4@docler.com', 'test');
+        self::$token = $this->login('user4@test.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'not_done'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_done'], 'not_done', 'in_progress'); // @phpstan-ignore-line
     }

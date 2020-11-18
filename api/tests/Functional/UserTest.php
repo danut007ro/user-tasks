@@ -49,7 +49,7 @@ class UserTest extends ApiTestCase
             '@context' => '/contexts/User',
             '@id' => "/users/{$user->getId()}",
             '@type' => 'User',
-            'email' => 'user1@docler.com',
+            'email' => 'user1@test.com',
         ]);
 
         self::assertMatchesResourceItemJsonSchema(User::class);

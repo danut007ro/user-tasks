@@ -15,8 +15,8 @@ class TokenTest extends ApiTestCase
     {
         static::createClient()->request('POST', '/authentication_token', [
             'json' => [
-                'email' => 'user1@docler.com',
-                'password' => 'docler1',
+                'email' => 'user1@test.com',
+                'password' => 'test1',
             ],
         ]);
 

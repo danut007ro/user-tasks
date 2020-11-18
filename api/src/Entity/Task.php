@@ -6,7 +6,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\TaskTransitionHandler;
-use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -56,7 +55,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      },
  *     },
  * )
- * @ORM\Entity(repositoryClass=TaskRepository::class)
+ * @ORM\Entity()
  */
 class Task
 {
