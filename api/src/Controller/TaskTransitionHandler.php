@@ -8,6 +8,9 @@ use App\Entity\Task;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Workflow\WorkflowInterface;
 
+/**
+ * Handler for Task transitions.
+ */
 final class TaskTransitionHandler
 {
     private WorkflowInterface $tasksStateMachine;
