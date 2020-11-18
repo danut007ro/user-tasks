@@ -14,15 +14,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"task:input"}},
  *     collectionOperations={
  *      "post"={
+ *          "openapi_context"={
+ *              "summary"="Creates a Task resource. Needs to be logged in. Only admin can specify another user than itself.",
+ *          },
  *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
  *      },
  *     },
  *     itemOperations={
- *      "get",
+ *      "get"={
+ *          "openapi_context"={
+ *              "security"={},
+ *          },
+ *      },
  *      "patch"={
+ *          "openapi_context"={
+ *              "summary"="Updates the Task resource. Needs to be logged in. Only admin can specify another user than itself.",
+ *          },
  *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
  *      },
  *      "delete"={
+ *          "openapi_context"={
+ *              "summary"="Removes the Task resource. Needs to be logged in. Only admin can remove tasks for other users. Only tasks marked as `done` can be removed.",
+ *          },
  *          "security"="object.getMarking() == 'done' and (is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user))",
  *      },
  *      "transition"={
@@ -32,6 +45,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "path"="/tasks/{id}/transition/{transition}",
  *          "controller"=TaskTransitionHandler::class,
  *          "openapi_context"={
+ *              "summary"="Creates a Task transition. Needs to be logged in. Only admin can transition tasks for other users. Transitions must follow the defined workflow.",
  *              "parameters"={
  *                  {
  *                      "name"="id",

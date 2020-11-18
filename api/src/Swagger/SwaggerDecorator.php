@@ -54,6 +54,7 @@ final class SwaggerDecorator implements NormalizerInterface
                         'tags' => ['Token'],
                         'operationId' => 'postCredentialsItem',
                         'summary' => 'Get JWT token to login.',
+                        'security' => [],
                         'requestBody' => [
                             'description' => 'Create new JWT Token',
                             'content' => [
@@ -80,6 +81,9 @@ final class SwaggerDecorator implements NormalizerInterface
                 ],
             ],
         ];
+
+        $docs['paths']['/users/{id}/tasks']['get']['security'] = [];
+        $docs['paths']['/users/{id}/tasks']['get']['summary'] = 'Retrieves the collection of Task resources for a given User.';
 
         return array_merge_recursive($docs, $tokenDocumentation);
     }

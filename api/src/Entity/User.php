@@ -16,10 +16,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"user:output"}},
  *     collectionOperations={
- *      "get",
+ *      "get"={
+ *          "openapi_context"={
+ *              "security"={},
+ *          },
+ *      },
  *     },
  *     itemOperations={
- *      "get",
+ *      "get"={
+ *          "openapi_context"={
+ *              "security"={},
+ *          },
+ *      },
  *     },
  * )
  * @ORM\Entity()

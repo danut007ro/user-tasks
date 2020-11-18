@@ -32,6 +32,3 @@ services:
 
     App\Swagger\SwaggerDecorator:
         decorates: 'api_platform.swagger.normalizer.documentation'
-
-    App\Serializer\ContextBuilder:
-        decorates: 'api_platform.serializer.context_builder'

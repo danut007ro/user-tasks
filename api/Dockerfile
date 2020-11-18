@@ -29,6 +29,8 @@ RUN set -eux; \
 		libzip-dev \
 		postgresql-dev \
 		zlib-dev \
+		graphviz \
+		ttf-freefont \
 	; \
 	\
 	docker-php-ext-configure zip; \
