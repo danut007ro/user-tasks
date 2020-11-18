@@ -103,6 +103,22 @@ class TaskTest extends ApiTestCase
         self::assertEquals("/users/{$user->getId()}", $response->toArray()['user']);
     }
 
+    public function testUpdateTaskWithoutTokenFails(): void
+    {
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        static::createClient()->request('PATCH', "/tasks/{$task->getId()}", [
+            'json' => [
+                'description' => 'foo',
+            ],
+            'headers' => [
+                'Content-Type' => 'application/merge-patch+json',
+            ],
+        ]);
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
     public function testUpdateTaskForSelfSucceeds(): void
     {
         $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
@@ -207,20 +223,38 @@ class TaskTest extends ApiTestCase
         self::assertMatchesResourceCollectionJsonSchema(Task::class);
     }
 
+    public function testTransitionWithoutTokenFails(): void
+    {
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        static::createClient()->request('POST', "/tasks/{$task->getId()}/transition/foo");
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function testTransitionAsAdminSucceeds(): void
+    {
+        self::$token = self::login('admin@docler.com', 'admin');
+        $this->testTransition(self::$fixtures['Task_4_new'], 'working', 'in_progress'); // @phpstan-ignore-line
+    }
+
     public function testTransitionWorking(): void
     {
+        self::$token = $this->login('user4@docler.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'working'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_new'], 'working', 'in_progress'); // @phpstan-ignore-line
     }
 
     public function testTransitionCompleted(): void
     {
+        self::$token = $this->login('user4@docler.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_new'], 'completed'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'completed', 'done'); // @phpstan-ignore-line
     }
 
     public function testTransitionNotDone(): void
     {
+        self::$token = $this->login('user4@docler.com', 'test');
         $this->testTransition(self::$fixtures['Task_4_in_progress'], 'not_done'); // @phpstan-ignore-line
         $this->testTransition(self::$fixtures['Task_4_done'], 'not_done', 'in_progress'); // @phpstan-ignore-line
     }
@@ -228,13 +262,14 @@ class TaskTest extends ApiTestCase
     private function testTransition(Task $task, string $transition, string $expectedMarking = ''): void
     {
         $response = static::createClient()->request('POST', "/tasks/{$task->getId()}/transition/$transition", [
+            'json' => [],
             'headers' => [
                 'Authorization' => 'Bearer '.self::$token,
             ],
         ]);
 
         if ('' === $expectedMarking) {
-            self::assertResponseStatusCodeSame(403);
+            self::assertResponseStatusCodeSame(400);
         } else {
             self::assertEquals($expectedMarking, $response->toArray()['marking']);
         }

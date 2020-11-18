@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\TaskTransitionHandler;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -21,6 +22,34 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get",
  *      "patch"={
  *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
+ *      },
+ *      "transition"={
+ *          "denormalization_context"={"groups"={"task:transition"}},
+ *          "security"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
+ *          "method"="POST",
+ *          "path"="/tasks/{id}/transition/{transition}",
+ *          "controller"=TaskTransitionHandler::class,
+ *          "openapi_context"={
+ *              "parameters"={
+ *                  {
+ *                      "name"="id",
+ *                      "required"=true,
+ *                      "in"="path",
+ *                      "schema"={
+ *                          "type"="string",
+ *                      },
+ *                  },
+ *                  {
+ *                      "name"="transition",
+ *                      "required"=true,
+ *                      "in"="path",
+ *                      "schema"={
+ *                          "type"="string",
+ *                          "enum"={"working", "completed", "not_done"},
+ *                      },
+ *                  },
+ *              },
+ *          },
  *      },
  *     },
  * )

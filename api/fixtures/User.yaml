@@ -16,6 +16,10 @@ App\Entity\User:
         email: 'user3@docler.com'
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$pagXzxc6v/4Ibo4cmTlTtw\$oLquBQ9Sqq3MYx6JB3LrAVz/amFDWuN5sDOIa/5bJ6A' # docler3
 
-    User_{4..100}:
+    User_4:
+        email: 'user4@docler.com'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$69sWulaqq5RRd+SBYzRRSw\$hccWdwYbCcgez6uuQWTYzw5pchEM/xeuoG1GfkHD8vk' # test
+
+    User_{5..100}:
         email: <email()>
         password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$69sWulaqq5RRd+SBYzRRSw\$hccWdwYbCcgez6uuQWTYzw5pchEM/xeuoG1GfkHD8vk' # test

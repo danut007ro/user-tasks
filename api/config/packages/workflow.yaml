@@ -1,7 +1,7 @@
 framework:
     workflows:
         tasks:
-            type: workflow
+            type: state_machine
             audit_trail:
                 enabled: true
             supports:
