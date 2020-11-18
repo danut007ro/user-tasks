@@ -176,6 +176,70 @@ class TaskTest extends ApiTestCase
         self::assertEquals("/users/{$user->getId()}", $response->toArray()['user']);
     }
 
+    public function testDeleteTaskWithoutTokenFails(): void
+    {
+        $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line
+
+        static::createClient()->request('DELETE', "/tasks/{$task->getId()}");
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function testDeleteTaskForSelfSucceeds(): void
+    {
+        $token = self::login('user4@docler.com', 'test');
+        $task = self::$fixtures['Task_4_done']; // @phpstan-ignore-line
+
+        static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testDeleteTaskForOtherFails(): void
+    {
+        $task = self::$fixtures['Task_4_done']; // @phpstan-ignore-line
+
+        static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
+            'headers' => [
+                'Authorization' => 'Bearer '.self::$token,
+            ],
+        ]);
+
+        self::assertResponseStatusCodeSame(403);
+    }
+
+    public function testDeleteTaskForOtherAsAdminSucceeds(): void
+    {
+        $token = self::login('admin@docler.com', 'admin');
+        $task = self::$fixtures['Task_4_done']; // @phpstan-ignore-line
+
+        static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testDeleteNotDoneFails(): void
+    {
+        $token = self::login('admin@docler.com', 'admin');
+        $task = self::$fixtures['Task_4_in_progress']; // @phpstan-ignore-line
+
+        static::createClient()->request('DELETE', "/tasks/{$task->getId()}", [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+            ],
+        ]);
+
+        self::assertResponseStatusCodeSame(403);
+    }
+
     public function testGetItem(): void
     {
         $task = self::$fixtures['Task_1_1']; // @phpstan-ignore-line

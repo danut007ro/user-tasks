@@ -23,6 +23,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "patch"={
  *          "security_post_denormalize"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
  *      },
+ *      "delete"={
+ *          "security"="object.getMarking() == 'done' and (is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user))",
+ *      },
  *      "transition"={
  *          "denormalization_context"={"groups"={"task:transition"}},
  *          "security"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.getUser() == user)",
